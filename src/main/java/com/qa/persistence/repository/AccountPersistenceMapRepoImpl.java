@@ -3,9 +3,9 @@ package com.qa.persistence.repository;
 
 import java.util.HashMap;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Alternative;
 
+import javax.enterprise.inject.Alternative;
+import javax.faces.bean.ApplicationScoped;
 
 import com.qa.persistence.domain.Account;
 import com.qa.utils.JSONUtil;
@@ -46,9 +46,9 @@ public class AccountPersistenceMapRepoImpl implements AccountRepo {
 	}
 
 	@Override
-	public boolean delete(Account accountToBeDeleted) {
-		this.accountList.remove(accountToBeDeleted.getAccountNo());
-		return this.accountList.containsValue(accountToBeDeleted);
+	public boolean delete(Integer accountNumberToBeDeleted) {
+		this.accountList.remove(accountNumberToBeDeleted);
+		return this.accountList.containsKey(accountNumberToBeDeleted);
 	}
 
 	

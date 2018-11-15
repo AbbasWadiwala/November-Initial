@@ -3,8 +3,9 @@ package com.qa.persistence.repository;
 import static javax.transaction.Transactional.TxType.REQUIRED;
 import static javax.transaction.Transactional.TxType.SUPPORTS;
 
-import javax.enterprise.context.RequestScoped;
+
 import javax.enterprise.inject.Default;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -23,8 +24,7 @@ public class AccountPersistenceDBRepoImpl implements AccountRepo {
 	private EntityManager manager;
 
 	public String findAllAccount() {
-		TypedQuery<Account> query = manager.createQuery("SELECT m FROM Account m ORDER BY m.accountNumber DESC",
-				Account.class);
+		TypedQuery<Account> query = manager.createQuery("SELECT m FROM Account m ORDER BY m.accountNo DESC", Account.class);
 		return JSONUtil.getJSONForObject(query.getResultList());
 	}
 
@@ -38,33 +38,21 @@ public class AccountPersistenceDBRepoImpl implements AccountRepo {
 		accountToBeUpdated.setFirstname(accountWithNewUpdatedDetails.getFirstname());
 		accountToBeUpdated.setSurname(accountWithNewUpdatedDetails.getSurname());
 		manager.merge(accountToBeUpdated);
-		return manager.contains(accountWithNewUpdatedDetails);
+		return manager.find(Account.class, accountToBeUpdated.getAccountNo()) != null ? true : false;
 	}
 
 	@Transactional(REQUIRED)
 	public boolean createAccount(Account accountToBeCreated) {
 		manager.persist(accountToBeCreated);
-		return manager.contains(accountToBeCreated);
+		return manager.find(Account.class, accountToBeCreated.getAccountNo()) != null ? true : false;
 	}
 
 	@Transactional(REQUIRED)
-	public boolean delete(Account accountToBeDeleted) {
+	public boolean delete(Integer accountNumberOfAccountToBeDeleted) {
+		Account accountToBeDeleted = manager.find(Account.class, accountNumberOfAccountToBeDeleted);
 		manager.remove(accountToBeDeleted);
-		return manager.contains(accountToBeDeleted);
+		return manager.find(Account.class, accountNumberOfAccountToBeDeleted) == null ? true : false;
 	}
 
-	// public Account findAnAccountJPQL(Integer accountNumber) {
-	// 		TypedQuery<Account> query = manager.createQuery("SELECT m FROM Account m
-	// 		where m.accountNumber=" + accountNumber, Account.class);
-	// 		return query.getSingleResult();
-	// }
-	//
-
-	// @Transactional(REQUIRED)
-	// public String createAccountJTAGPQL(String account) {
-	// 		Account anAccount = JSONUtil.getObjectForJSON(account, Account.class);
-	// 		manager.persist(anAccount);
-	// 		return "{\"message\": \"account sucessfully added\"}";
-	// }
 
 }

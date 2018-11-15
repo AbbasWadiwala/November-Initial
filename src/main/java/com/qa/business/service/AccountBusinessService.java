@@ -5,12 +5,12 @@ public interface AccountBusinessService {
 	
 	String findAllAccount();
 
-	String findAnAccount(Integer accountNumber);
+	String findAnAccount(Integer accountNumberOfAccountToBeFound);
 
-	boolean updateAnAccount(String accountNew, Integer accountNumberOld);
+	boolean updateAnAccount(String accountHoldingNewInfo, Integer accountNumberOfAccountToBeUpdated);
 
-	boolean createAccount(String account);
+	boolean createAccount(String accountToBeCreated);
 
-	boolean delete(String account);
+	boolean delete(Integer accountNumberOfAccountToBeDeleted);
 	
 }

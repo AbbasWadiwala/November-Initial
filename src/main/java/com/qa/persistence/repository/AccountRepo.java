@@ -12,5 +12,5 @@ public interface AccountRepo {
 
 	boolean createAccount(Account accountToBeCreated);
 
-	boolean delete(Account accountToBeDeleted);
+	boolean delete(Integer accountNumberOfAccountToBeDeleted);
 }
