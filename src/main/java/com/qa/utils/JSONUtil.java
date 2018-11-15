@@ -6,11 +6,13 @@ public class JSONUtil {
 
 	private static Gson gson;
 
-	public JSONUtil() {
-		this.gson = new Gson();
-	}
+	//	public JSONUtil() {
+	//		this.gson = new Gson();
+	//	}
+	
+	private JSONUtil() {};
 
-	public String getJSONForObject(Object obj) {
+	public static String getJSONForObject(Object obj) {
 		return gson.toJson(obj);
 	}
 
