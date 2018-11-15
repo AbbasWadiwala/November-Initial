@@ -35,15 +35,13 @@ public class AccountBusinessServiceImpl implements AccountBusinessService {
 		
 		if(accountObj.getAccountNo() == 9999) {
 			return false;
-		}
-		
+		}		
 		return repo.createAccount(JSONUtil.getObjectForJSON(accountToBeCreated, Account.class));
 	}
 
 	@Override
-	public boolean delete(String accountToBeDeleted) {
-		
-		return repo.delete(JSONUtil.getObjectForJSON(accountToBeDeleted, Account.class));
+	public boolean delete(Integer accountToBeDeleted) {
+		return repo.delete(accountToBeDeleted);
 	}
 	
 	

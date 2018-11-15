@@ -8,12 +8,21 @@ import javax.persistence.Id;
 
 @Entity
 public class Account {
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id 
 	private Integer accountNo;
 	@Column(length = 20)
 	private String firstname;
 	@Column(length = 20)
 	private String surname;
+	
+	public Account(String firstName, String surname) {
+		super();
+		this.firstname = firstName;
+		this.surname = surname;
+	}
+	
+	public Account() {};
 	
 	public Integer getAccountNo() {
 		return accountNo;
